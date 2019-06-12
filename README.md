@@ -2,7 +2,7 @@
 《C++ Concurrency In Action——Practical Multithreading》笔记
 
 $ g++ -o ex01 ex01.cpp -std=c++11 -pthread
-测试10次未出现问题，该错误并不容易复现。
+
 
 ## 目录
 - 第1章 你好，C++的并发世界

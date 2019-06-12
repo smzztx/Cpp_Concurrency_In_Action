@@ -16,3 +16,7 @@ $ g++ -o ex01 ex01.cpp -std=c++11 -pthread
     	- listing2.1 使用了detach()，当主线程结束后，子线程也会结束；listing2.2 使用了join()，主线程会等待子线程结束。
     - [listing_2.3](listing_2.3.cpp)
     	- 自定义一个 thread_guard 类来管理销毁子线程。
+    - [listing_2.4](listing_2.4.cpp)
+    	- 打开一个新文档后分离线程。
+    	- std::thread 还可以传递函数所需的参数。
+    - 

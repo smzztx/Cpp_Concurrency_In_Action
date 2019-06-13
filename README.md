@@ -28,3 +28,9 @@ $ g++ -o ex01 ex01.cpp -std=c++11 -pthread
     - [listing_2.6](listing_2.6.cpp)
     	- 使用移动时，在构造函数处检查 joinable()。
     - [listing_2.7](listing_2.7.cpp)
+    - [listing_2.8](listing_2.8.cpp)
+    - 2.5 标识线程
+    	- 线程标识类型是 std::thread::id，可以通过两种方式进行检索。第一种，可以通过调用 std::thread 对象的成员函数 get_id() 来直接获取；第二种，当前线程中调用 std::this_thread::get_id() 也可以获得线程标识。
+    	- 如果两个对象的 std::thread::id 相等，那它们就是同一个线程，或者都“无线程”。如果不等，那么就代表了两个不同线程，或者一个有线程，另一没有线程。具体的输出结果是严格依赖于具体实现的，C++ 标准的唯一要求就是要保证ID比较结果相等的线程，必须有相同的输出 。
+- 第3章 线程间共享数据
+	- [listing_3.1](listing_3.1.cpp)

@@ -47,3 +47,9 @@ $ g++ -o ex01 ex01.cpp -std=c++11 -pthread
         - [listing_3.6](listing_3.6.cpp)
         	- 当一个类有2个互斥量时，一个线程先锁A互斥量再锁B，另一个先锁B再锁A，这样就可能造成死锁。
         	- 当 std::lock 成功的获取一个互斥量上的锁，并且当其尝试从另一个互斥量上再获取锁时，就会有异常抛出，第一个锁也会随着异常的产生而自动释放，所以 std::lock 要么将两个锁都锁住，要不一个都不锁。
+        - [listing_3.7](listing_3.7.cpp)
+        	- 分层互斥。
+        - [listing_3.8](listing_3.8.cpp)
+        	- static thread_local ，每个线程只有一个该变量，变量的状态完全独立。
+        - [listing_3.9](listing_3.9.cpp)
+        	- 

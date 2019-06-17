@@ -52,4 +52,4 @@ $ g++ -o ex01 ex01.cpp -std=c++11 -pthread
         - [listing_3.8](listing_3.8.cpp)
         	- static thread_local ，每个线程只有一个该变量，变量的状态完全独立。
         - [listing_3.9](listing_3.9.cpp)
-        	- 
+        	- std::unique_lock 实例没有与自身相关的互斥量，一个互斥量的所有权可以通过移动操作，在不同的实例中进行传递。

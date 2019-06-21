@@ -64,4 +64,9 @@ $ g++ -o listing_3.13 listing_3.13.cpp -std=c++11 -lboost_system
         - 读者-作者锁。对于更新操作，可以使用 std::lock_guard<boost::shared_mutex> 和 std::unique_lock<boost::shared_mutex>上锁。作为 std::mutex 的替代方案，与 std::mutex 所做的一样，这就能保证更新线程的独占访问。因为其他线程不需要去修改数据结构，所以其可以使用 boost::shared_lock<boost::shared_mutex> 获取访问权。
     - 嵌套锁。std::recursive_mutex 类，使用该类时需要合理规划，因为前一次锁未解之前，被保护的对象可能还在被修改。
 - 第4章 同步并发操作
-	- 
+	- [listing_4.1](listing_4.1.cpp)
+		- 实现条件变量 std::condition_variable。
+		- 当条件不满足时，线程将对互斥量解锁，并且重新开始等待。这就是为什么用 std::unique_lock 而不使用 std::lock_guard ——等待中的线程必须在等待期间解锁互斥量，并在这这之后对互斥量再次上锁，而 std::lock_guard 没有这么灵活。
+	- [listing_4.2](listing_4.2.cpp)
+	- [listing_4.3](listing_4.3.cpp)
+	- [listing_4.4](listing_4.4.cpp)

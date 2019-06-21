@@ -36,29 +36,32 @@ $ g++ -o listing_3.13 listing_3.13.cpp -std=c++11 -lboost_system
 - 第3章 线程间共享数据
 	- [listing_3.1](listing_3.1.cpp)
 		- 使用互斥量。
-		- [listing_3.2](listing_3.2.cpp)
-			- 当其中一个成员函数返回的是保护数据的指针或引用时，会破坏对数据的保护。
-        - [listing_3.3](listing_3.3.cpp)
-        - [listing_3.4](listing_3.4.cpp)
-        - [listing_3.5](listing_3.5.cpp)
-        	- 使用安全的接口，pop()接口：
-        		- 传入一个引用。
-        		- 无异常抛出的拷贝构造函数或移动构造函数。
-        		- 返回指向弹出值的指针。
-        - [listing_3.6](listing_3.6.cpp)
-        	- 当一个类有2个互斥量时，一个线程先锁A互斥量再锁B，另一个先锁B再锁A，这样就可能造成死锁。
-        	- 当 std::lock 成功的获取一个互斥量上的锁，并且当其尝试从另一个互斥量上再获取锁时，就会有异常抛出，第一个锁也会随着异常的产生而自动释放，所以 std::lock 要么将两个锁都锁住，要不一个都不锁。
-        - [listing_3.7](listing_3.7.cpp)
-        	- 分层互斥。
-        - [listing_3.8](listing_3.8.cpp)
-        	- static thread_local ，每个线程只有一个该变量，变量的状态完全独立。
-        - [listing_3.9](listing_3.9.cpp)
-        	- std::unique_lock 实例没有与自身相关的互斥量，一个互斥量的所有权可以通过移动操作，在不同的实例中进行传递。
-        - [listing_3.10](listing_3.10.cpp)
-        	- 获取值之后，两个值可能会变化，这样会失去比较的意义。
-        - [listing_3.11](listing_3.11.cpp)
-        	- 没有必要每次都获取锁。C++ 标准提供了一种纯粹保护共享数据初始化过程的机制。
-        - [listing_3.12](listing_3.12.cpp)
-        	- 可以使用 std::once_flag 和 std::call_once 来处理这种情况。比起锁住互斥量，并显式的检查指针，每个线程只需要使用 std::call_once，在 std::call_once 的结束时，就能安全的知道指针已经被其他的线程初始化了。使用 std::call_once 比显式使用互斥量消耗的资源更少，特别是当初始化完成后。
-        - [listing_3.13](listing_3.13.cpp)
-        	- 读者-作者锁。对于更新操作，可以使用 std::lock_guard<boost::shared_mutex> 和 std::unique_lock<boost::shared_mutex>上锁。作为 std::mutex 的替代方案，与 std::mutex 所做的一样，这就能保证更新线程的独占访问。因为其他线程不需要去修改数据结构，所以其可以使用 boost::shared_lock<boost::shared_mutex> 获取访问权。
+	- [listing_3.2](listing_3.2.cpp)
+		- 当其中一个成员函数返回的是保护数据的指针或引用时，会破坏对数据的保护。
+    - [listing_3.3](listing_3.3.cpp)
+    - [listing_3.4](listing_3.4.cpp)
+    - [listing_3.5](listing_3.5.cpp)
+        - 使用安全的接口，pop()接口：
+        	- 传入一个引用。
+        	- 无异常抛出的拷贝构造函数或移动构造函数。
+        	- 返回指向弹出值的指针。
+    - [listing_3.6](listing_3.6.cpp)
+        - 当一个类有2个互斥量时，一个线程先锁A互斥量再锁B，另一个先锁B再锁A，这样就可能造成死锁。
+        - 当 std::lock 成功的获取一个互斥量上的锁，并且当其尝试从另一个互斥量上再获取锁时，就会有异常抛出，第一个锁也会随着异常的产生而自动释放，所以 std::lock 要么将两个锁都锁住，要不一个都不锁。
+    - [listing_3.7](listing_3.7.cpp)
+        - 分层互斥。
+    - [listing_3.8](listing_3.8.cpp)
+        - static thread_local ，每个线程只有一个该变量，变量的状态完全独立。
+    - [listing_3.9](listing_3.9.cpp)
+        - std::unique_lock 实例没有与自身相关的互斥量，一个互斥量的所有权可以通过移动操作，在不同的实例中进行传递。
+    - [listing_3.10](listing_3.10.cpp)
+        - 获取值之后，两个值可能会变化，这样会失去比较的意义。
+    - [listing_3.11](listing_3.11.cpp)
+        - 没有必要每次都获取锁。C++ 标准提供了一种纯粹保护共享数据初始化过程的机制。
+    - [listing_3.12](listing_3.12.cpp)
+        - 可以使用 std::once_flag 和 std::call_once 来处理这种情况。比起锁住互斥量，并显式的检查指针，每个线程只需要使用 std::call_once，在 std::call_once 的结束时，就能安全的知道指针已经被其他的线程初始化了。使用 std::call_once 比显式使用互斥量消耗的资源更少，特别是当初始化完成后。
+    - [listing_3.13](listing_3.13.cpp)
+        - 读者-作者锁。对于更新操作，可以使用 std::lock_guard<boost::shared_mutex> 和 std::unique_lock<boost::shared_mutex>上锁。作为 std::mutex 的替代方案，与 std::mutex 所做的一样，这就能保证更新线程的独占访问。因为其他线程不需要去修改数据结构，所以其可以使用 boost::shared_lock<boost::shared_mutex> 获取访问权。
+    - 嵌套锁。std::recursive_mutex 类，使用该类时需要合理规划，因为前一次锁未解之前，被保护的对象可能还在被修改。
+- 第4章 同步并发操作
+	- 

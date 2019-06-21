@@ -2,6 +2,7 @@
 《C++ Concurrency In Action——Practical Multithreading》笔记
 
 $ g++ -o ex01 ex01.cpp -std=c++11 -pthread
+$ g++ -o listing_3.13 listing_3.13.cpp -std=c++11 -lboost_system
 
 
 ## 目录
@@ -53,3 +54,11 @@ $ g++ -o ex01 ex01.cpp -std=c++11 -pthread
         	- static thread_local ，每个线程只有一个该变量，变量的状态完全独立。
         - [listing_3.9](listing_3.9.cpp)
         	- std::unique_lock 实例没有与自身相关的互斥量，一个互斥量的所有权可以通过移动操作，在不同的实例中进行传递。
+        - [listing_3.10](listing_3.10.cpp)
+        	- 获取值之后，两个值可能会变化，这样会失去比较的意义。
+        - [listing_3.11](listing_3.11.cpp)
+        	- 没有必要每次都获取锁。C++ 标准提供了一种纯粹保护共享数据初始化过程的机制。
+        - [listing_3.12](listing_3.12.cpp)
+        	- 可以使用 std::once_flag 和 std::call_once 来处理这种情况。比起锁住互斥量，并显式的检查指针，每个线程只需要使用 std::call_once，在 std::call_once 的结束时，就能安全的知道指针已经被其他的线程初始化了。使用 std::call_once 比显式使用互斥量消耗的资源更少，特别是当初始化完成后。
+        - [listing_3.13](listing_3.13.cpp)
+        	- 读者-作者锁。对于更新操作，可以使用 std::lock_guard<boost::shared_mutex> 和 std::unique_lock<boost::shared_mutex>上锁。作为 std::mutex 的替代方案，与 std::mutex 所做的一样，这就能保证更新线程的独占访问。因为其他线程不需要去修改数据结构，所以其可以使用 boost::shared_lock<boost::shared_mutex> 获取访问权。

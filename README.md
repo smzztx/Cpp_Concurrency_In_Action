@@ -4,6 +4,7 @@
 $ g++ -o ex01 ex01.cpp -std=c++11 -pthread
 $ g++ -o listing_3.13 listing_3.13.cpp -std=c++11 -lboost_system
 
+thread_local mutable
 
 ## 目录
 - 第1章 你好，C++的并发世界
@@ -70,3 +71,17 @@ $ g++ -o listing_3.13 listing_3.13.cpp -std=c++11 -lboost_system
 	- [listing_4.2](listing_4.2.cpp)
 	- [listing_4.3](listing_4.3.cpp)
 	- [listing_4.4](listing_4.4.cpp)
+	- [listing_4.5](listing_4.5.cpp)
+		- 如果锁住互斥量是一个可变操作，那么这个互斥量对象就会标记为可变的，之后他就可以在 empty() 和拷贝构造函数中上锁了。
+		- 当新的数据准备完成，调用 notify_one() 将会触发一个正在执行 wait() 的线程，去检查条件和 wait() 函数的返回状态(因为你仅是向 data_queue 添加一个数据项)。这里不保证线程一定会被通知到，即使只有一个等待线程被通知时，所有处线程也有可能都在处理数据。
+		- 另一种可能是，很多线程等待同一事件，对于通知他们都需要做出回应。在这些情况下， 准备线程准备数据数据时，就会通过条件变量调用 notify_all() 成员函数，而非直接调用 notify_one() 函数。
+		- 当等待线程只等待一次，当条件为 true 时，它就不会再等待条件变量了，所以一个条件变量可能并非同步机制的最好选择。尤其是，条件在等待一组可用的数据块时。在这样的情况下，期望(future)就是一个适合的选择。
+	- [listing_4.6](listing_4.6.cpp)
+	- [listing_4.7](listing_4.7.cpp)
+		- 使用期望 std::future 和 std::async 。
+		- std::async(baz, std::ref(x))会报错，必须为auto f = std::async(baz, std::ref(x))。
+	- [listing_4.8](listing_4.8.cpp)
+
+
+---------
+https://github.com/anthonywilliams/ccia_code_samples.git

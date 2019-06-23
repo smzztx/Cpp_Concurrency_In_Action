@@ -81,6 +81,12 @@ thread_local mutable
 		- 使用期望 std::future 和 std::async 。
 		- std::async(baz, std::ref(x))会报错，必须为auto f = std::async(baz, std::ref(x))。
 	- [listing_4.8](listing_4.8.cpp)
+	- [listing_4.9](listing_4.9.cpp)
+		- 使用“任务”，std::packaged_task。
+	- [listing_4.10](listing_4.10.cpp)
+		- 使用“承诺”，std::promise。
+	- [listing_4.11](listing_4.11.cpp)
+		- wait_for + 时间段；wait_until + 时间点。
 
 
 ---------

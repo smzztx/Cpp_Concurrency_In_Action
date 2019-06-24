@@ -87,6 +87,12 @@ thread_local mutable
 		- 使用“承诺”，std::promise。
 	- [listing_4.11](listing_4.11.cpp)
 		- wait_for + 时间段；wait_until + 时间点。
+	- [listing_4.12](listing_4.12.cpp)
+		- 快速排序，顺序实现版。
+	- [listing_4.13](listing_4.13.cpp)
+    	- 快速排序，“期望”并行版。
+    	- 当任务过多时(已影响性能)，这些任务应该在使用 get() 函数获取的线程上运行，而不是在新线程上运行，这样就能避免任务向线程传递的开销。值得注意的是，这完全符合 std::async 的实现，为每一个任务启动一个线程(甚至在任务超额时；使用同步操作简化代码在 std::launch::deferred 没有明确规定的情况下)；或为了同步执行所有任务(在 std::launch::async 有明确规定的情况下)。当你依赖运行库的自动缩放，建议你去查看一下你的实 现文档，了解一下将会有怎么样的行为表现。
+    - [listing_4.14](listing_4.14.cpp)
 
 
 ---------

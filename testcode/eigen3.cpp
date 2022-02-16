@@ -11,6 +11,19 @@ typedef union    //ACC
 
 int main()
 {
+	std::string *ps1 = new std::string("a");
+	std::cout << *ps1 << std::endl;
+	std::string *ps2 = new std::string(200, 'a');
+	std::cout << *ps2 << std::endl;
+	std::cout << ps1 << std::endl;
+	std::cout << ps2 << std::endl;
+	*ps1 = *ps2;
+	std::cout << *ps1 << std::endl;
+	std::cout << *ps2 << std::endl;
+	std::cout << ps1 << std::endl;
+	std::cout << ps2 << std::endl;
+	delete ps2;
+	std::cout << *ps1 << std::endl;
 	float f = 0.1;
 	// std::cout << int(f) << std::endl;
 	PID P;
